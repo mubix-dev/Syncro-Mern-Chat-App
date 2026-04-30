@@ -6,8 +6,7 @@ import {BrowserRouter} from "react-router-dom"
 import  {Provider} from "react-redux"
 import store from './redux/store.js'
 
-//export const serverURL = "https://syncro-fmo9.onrender.com"
-export const serverURL = "http://localhost:3000"
+export const serverURL = "https://syncro-mern-chat-app.onrender.com"
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <Provider store={store}>
