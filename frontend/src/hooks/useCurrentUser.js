@@ -4,7 +4,7 @@ import { serverURL } from "../main";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../redux/userSlice";
 
-const useCurrentUser = () => { // Renamed to follow hook conventions
+const useCurrentUser = () => {
     const dispatch = useDispatch();
     const { userData } = useSelector(state => state.user);
 
@@ -18,12 +18,16 @@ const useCurrentUser = () => { // Renamed to follow hook conventions
                 });
                 dispatch(setUserData(result.data));
             } catch (error) {
-                console.error("Session check failed:", error.response?.data?.message || error.message);
+                dispatch(setUserData(null));
+                
+                if (error.response?.status !== 400 && error.response?.status !== 401) {
+                    console.error("Session check failed:", error.message);
+                }
             }
         };
 
         fetchUserData();
-    }, [dispatch]); // Only depend on dispatch (which is stable)
+    }, [dispatch, userData]); 
 };
 
 export default useCurrentUser;
