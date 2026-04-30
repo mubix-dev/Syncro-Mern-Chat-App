@@ -15,7 +15,9 @@ import { serverURL } from "../main";
 import { setMessages } from "../redux/messageSlice";
 import { useEffect } from "react";
 function MessageArea() {
-  let { selectedUser,userData,socket } = useSelector((state) => state.user);
+  let { selectedUser, userData, socket, onlineUsers } = useSelector(
+    (state) => state.user,
+  );
   let dispatch = useDispatch();
   let navigate = useNavigate();
   let [emojiPicker, setShowEmojiPicker] = useState(false);
@@ -23,22 +25,25 @@ function MessageArea() {
   let [frontendImage, setFrontendImage] = useState("");
   let [backendImage, setBackendImage] = useState("");
   let image = useRef();
-  let {messages} = useSelector(state=>state.message)
+  let { messages } = useSelector((state) => state.message);
 
   useEffect(() => {
-  if (!socket) return;
+    if (!socket) return;
 
-  const handleNewMessage = (msg) => {
-    if (msg.sender === selectedUser?._id || msg.receiver === selectedUser?._id) {
-      dispatch(setMessages([...messages, msg]));
-    }
-  };
+    const handleNewMessage = (msg) => {
+      if (
+        msg.sender === selectedUser?._id ||
+        msg.receiver === selectedUser?._id
+      ) {
+        dispatch(setMessages([...messages, msg]));
+      }
+    };
 
-  socket.on("newMessage", handleNewMessage);
-  return () => {
-    socket.off("newMessage", handleNewMessage);
-  };
-}, [socket, messages, selectedUser, dispatch]);
+    socket.on("newMessage", handleNewMessage);
+    return () => {
+      socket.off("newMessage", handleNewMessage);
+    };
+  }, [socket, messages, selectedUser, dispatch]);
 
   const onClickEmoji = (emoji) => {
     setInput((prevInput) => prevInput + emoji.emoji);
@@ -53,8 +58,8 @@ function MessageArea() {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if(input.length===0 && backendImage == null){
-      return null
+    if (input.length === 0 && backendImage == null) {
+      return null;
     }
     try {
       let formData = new FormData();
@@ -67,10 +72,10 @@ function MessageArea() {
         formData,
         { withCredentials: true },
       );
-      dispatch(setMessages([...messages,result.data]))
-      setInput("")
-      setFrontendImage(null)
-      setBackendImage(null)
+      dispatch(setMessages([...messages, result.data]));
+      setInput("");
+      setFrontendImage(null);
+      setBackendImage(null);
     } catch (error) {
       console.log(error);
     }
@@ -81,9 +86,9 @@ function MessageArea() {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const imageHandleScroll = ()=>{
+  const imageHandleScroll = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }
+  };
 
   return (
     <div
@@ -99,24 +104,44 @@ function MessageArea() {
                 navigate("/");
               }}
             />
-            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm">
-              <img
-                className="w-full h-full object-cover"
-                src={selectedUser?.image || dp}
-                alt="Profile"
-              />
+            <div className="relative w-12 h-12">
+              {/* Profile Image Wrapper */}
+              <div className="w-full h-full rounded-full overflow-hidden border-2 border-white shadow-sm">
+                <img
+                  className="w-full h-full object-cover"
+                  src={selectedUser?.image || dp}
+                  alt="Profile"
+                />
+              </div>
+
+              {/* Online Status Dot - Now correctly positioned relative to the container */}
+              {onlineUsers.includes(selectedUser?._id) && (
+                <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full z-20"></span>
+              )}
             </div>
+
             <h1 className="text-white font-semibold text-xl">
               {selectedUser?.name || "User"}
             </h1>
           </div>
 
           <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-4 pb-24 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {messages && messages.map((msg)=>(
-              msg.sender === userData._id ? <SenderMessage image={msg.image} imageScroll={imageHandleScroll} message={msg.message}/>:
-              <ReceiverMessage image={msg.image} imageScroll={imageHandleScroll} message={msg.message}/>
-              
-            ))}
+            {messages &&
+              messages.map((msg) =>
+                msg.sender === userData._id ? (
+                  <SenderMessage
+                    image={msg.image}
+                    imageScroll={imageHandleScroll}
+                    message={msg.message}
+                  />
+                ) : (
+                  <ReceiverMessage
+                    image={msg.image}
+                    imageScroll={imageHandleScroll}
+                    message={msg.message}
+                  />
+                ),
+              )}
             <div ref={scrollRef} />
             {emojiPicker && (
               <div className="absolute bottom-20 left-5 z-50">
@@ -159,9 +184,11 @@ function MessageArea() {
                 className="text-2xl text-slate-100 cursor-pointer"
                 onClick={() => image.current.click()}
               />
-              {(input.length > 0 || backendImage)&&<button type="submit">
-                <IoSend className="text-2xl text-slate-100" />
-              </button>}
+              {(input.length > 0 || backendImage) && (
+                <button type="submit">
+                  <IoSend className="text-2xl text-slate-100" />
+                </button>
+              )}
             </form>
           </div>
         </>
