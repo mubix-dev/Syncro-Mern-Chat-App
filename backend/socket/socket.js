@@ -7,7 +7,7 @@ const server = http.createServer(app)
 
 const io = new Server(server,{
     cors:{
-        origin:"https://syncro-mern-chat-app-3of1.vercel.app"
+        origin:process.env.FRONTEND_URL
     }
 })
 
