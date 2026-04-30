@@ -22,11 +22,11 @@ function Signup() {
     try {
       const result = await axios.post(`${serverURL}/api/auth/signup`,{username,email,password},{withCredentials:true})
       dispatch(setUserData(result.data))
+      navigate("/verify-email", { state: { email } });
       setUsername("")
       setEmail("")
       setPassword("")
       setLoading(false)
-      navigate("/profile")
       setError("")
     } catch (error) {
       console.log(error)
