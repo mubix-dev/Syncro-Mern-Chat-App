@@ -44,6 +44,7 @@ function SideBar() {
       dispatch(setUserData(null));
       dispatch(setOtherUsersData(null));
       dispatch(setSelectedUser(null));
+      localStorage.removeItem("user");
       navigate("/login");
     } catch (error) {
       console.log("Logout failed", error);

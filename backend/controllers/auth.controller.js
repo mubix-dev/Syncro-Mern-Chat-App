@@ -92,7 +92,7 @@ const logout = async(req,res)=>{
         console.log("Logout successfully")
         return res.status(200).json({message:"Logout successfully!"})
     } catch (error) {
-        return res.status(500).json("Logout error occured!",error)
+        return res.status(500).json({ message: "Logout error occurred!", error: error.message });
     }
 }
 export { signUp,login,logout };
