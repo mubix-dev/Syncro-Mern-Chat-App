@@ -4,7 +4,6 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     userData: null,
-    isEmailVerified: false,
     otherUsersData: null,
     selectedUser: null,
     socket: null,
@@ -13,11 +12,6 @@ const userSlice = createSlice({
   reducers: {
     setUserData: (state, action) => {
       state.userData = action.payload;
-      state.isEmailVerified = action.payload?.isEmailVerified || false;
-    },
-    setVerifiedStatus: (state, action) => {
-      state.isEmailVerified = action.payload;
-      if (state.userData) state.userData.isEmailVerified = action.payload;
     },
     setOtherUsersData: (state, action) => {
       state.otherUsersData = action.payload;
@@ -40,7 +34,6 @@ export const {
   setSelectedUser,
   setSocket,
   setOnlineUsers,
-  setVerifiedStatus
 } = userSlice.actions;
 
 export default userSlice.reducer;
