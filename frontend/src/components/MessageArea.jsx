@@ -92,11 +92,11 @@ function MessageArea() {
 
   return (
     <div
-      className={`lg:w-[70%] ${selectedUser ? "flex" : "hidden"} lg:flex w-full h-screen bg-slate-200 flex-col relative`}
+      className={`lg:w-[70%] ${selectedUser ? "flex" : "hidden"} lg:flex w-full h-screen bg-[#253745] flex-col relative`}
     >
       {selectedUser ? (
         <>
-          <div className="w-full h-20 bg-blue-500 rounded-b-2xl flex items-center gap-5 shadow-md z-10 px-5">
+          <div className="w-full h-20 bg-[#06141B] rounded-b-2xl flex items-center gap-5 shadow-md z-10 px-5">
             <FaArrowLeft
               className="w-5 h-5 text-white cursor-pointer"
               onClick={() => {
@@ -104,20 +104,15 @@ function MessageArea() {
                 navigate("/");
               }}
             />
-            <div className="relative w-12 h-12">
+            <div className="w-12 h-12">
               {/* Profile Image Wrapper */}
-              <div className="w-full h-full rounded-full overflow-hidden border-2 border-white shadow-sm">
+              <div className={`w-full h-full rounded-full overflow-hidden border-2 ${onlineUsers.includes(selectedUser?._id)?"border-green-500":"border-white"} shadow-sm`}>
                 <img
                   className="w-full h-full object-cover"
                   src={selectedUser?.image || dp}
                   alt="Profile"
                 />
               </div>
-
-              {/* Online Status Dot - Now correctly positioned relative to the container */}
-              {onlineUsers.includes(selectedUser?._id) && (
-                <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full z-20"></span>
-              )}
             </div>
 
             <h1 className="text-white font-semibold text-xl">
@@ -154,7 +149,7 @@ function MessageArea() {
             )}
           </div>
 
-          <div className="w-full p-4 absolute bottom-0 bg-slate-200 flex justify-center">
+          <div className="w-full p-4 absolute bottom-0 bg-[#253745] flex justify-center">
             {frontendImage && (
               <img
                 className="w-20 absolute bottom-22 right-15 lg:right-20 rounded-xl shadow-md shadow-gray-500"
@@ -163,7 +158,7 @@ function MessageArea() {
               />
             )}
             <form
-              className="w-full lg:max-w-[90%] h-14 bg-blue-500 rounded-full flex items-center gap-4 px-5 shadow-lg"
+              className="w-full lg:max-w-[90%] h-14 bg-[#06141B] rounded-full flex items-center gap-4 px-5 shadow-lg"
               onSubmit={handleSendMessage}
             >
               <input type="file" hidden ref={image} onChange={handleImage} />
@@ -171,22 +166,22 @@ function MessageArea() {
                 type="button"
                 onClick={() => setShowEmojiPicker(!emojiPicker)}
               >
-                <RiEmojiStickerLine className="text-2xl text-slate-100" />
+                <RiEmojiStickerLine className="text-2xl text-slate-300" />
               </button>
               <input
-                className="flex-1 bg-transparent text-slate-100 placeholder-slate-200 outline-none text-lg"
+                className="flex-1 bg-transparent text-slate-300 placeholder-slate-300 outline-none text-lg"
                 placeholder="Type a message"
                 onChange={(e) => setInput(e.target.value)}
                 value={input}
                 type="text"
               />
               <FaRegImage
-                className="text-2xl text-slate-100 cursor-pointer"
+                className="text-2xl text-slate-300 cursor-pointer"
                 onClick={() => image.current.click()}
               />
               {(input.length > 0 || backendImage) && (
                 <button type="submit">
-                  <IoSend className="text-2xl text-slate-100" />
+                  <IoSend className="text-2xl text-slate-300" />
                 </button>
               )}
             </form>
@@ -194,10 +189,10 @@ function MessageArea() {
         </>
       ) : (
         <div className="w-full h-full flex flex-col justify-center items-center gap-5">
-          <h1 className="text-5xl font-bold">
-            Welcome to <span className="text-blue-600">Syncro</span>
+          <h1 className="text-5xl font-bold text-gray-200">
+            Welcome to <span className="text-[#06141B]">Syncro</span>
           </h1>
-          <h2 className="text-lg font-semibold text-gray-600">
+          <h2 className="text-lg font-semibold text-gray-200">
             Stay in sync with every word.
           </h2>
         </div>

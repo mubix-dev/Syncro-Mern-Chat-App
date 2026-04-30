@@ -9,7 +9,7 @@ function SenderMessage({ image, message, imageScroll }) {
     <div className="max-w-[85%] lg:max-w-[70%] self-end flex flex-row-reverse  gap-2">
       
       <div
-        className="w-8 h-8 shrink-0 rounded-full border-2 border-blue-500 overflow-hidden shadow-md"
+        className="w-8 h-8 shrink-0 rounded-full border-2 border-cyan-700 overflow-hidden shadow-md"
       >
         <img
           className="w-full h-full object-cover"
@@ -19,7 +19,7 @@ function SenderMessage({ image, message, imageScroll }) {
       </div>
 
       {/* 3. Message Bubble */}
-      <div className="flex flex-col gap-2 px-4 py-3 text-slate-100 rounded-2xl rounded-tr-none bg-blue-600 shadow-md">
+      <div className="flex flex-col gap-2 px-4 py-3 text-slate-100 rounded-2xl rounded-tr-none bg-[#11212D] shadow-md">
         {image && (
           <img
             className="w-full max-w-60 h-auto rounded-lg self-end"

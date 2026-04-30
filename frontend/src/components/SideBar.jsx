@@ -52,12 +52,12 @@ function SideBar() {
 
   return (
     <div
-      className={`lg:w-[30%] w-full lg:flex ${!selectedUser ? "flex" : "hidden"} h-screen bg-slate-200 flex flex-col border-r-2 border-slate-300`}
+      className={`lg:w-[30%] w-full lg:flex ${!selectedUser ? "flex" : "hidden"} h-screen bg-[#253745] flex flex-col border-r-2 border-slate-600`}
     >
       {/* Header Profile Section */}
-      <div className="w-full h-64 shrink-0 bg-blue-500 rounded-b-[40px] flex flex-col items-center justify-center shadow-lg z-10">
+      <div className="w-full h-64 shrink-0 bg-[#06141B] rounded-b-[40px] flex flex-col items-center justify-center shadow-lg z-10">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden shadow-xl">
+          <div className="w-20 h-20 rounded-full border-4 border-cyan-800 overflow-hidden shadow-xl">
             <img
               className="w-full h-full object-cover cursor-pointer"
               src={userData?.image || dp}
@@ -78,10 +78,10 @@ function SideBar() {
           {!isSearching ? (
             <div className="flex items-center gap-3">
               <button
-                className="p-3 rounded-full bg-white shadow-md hover:scale-110 transition-transform"
+                className="p-3 rounded-full bg-gray-200 shadow-md hover:scale-110 transition-transform"
                 onClick={() => setIsSearching(true)}
               >
-                <IoSearch className="text-blue-500 text-xl" />
+                <IoSearch className="text-[#06141B]  text-xl" />
               </button>
 
               {/* Top Avatars - Only visible when NOT searching */}
@@ -90,7 +90,7 @@ function SideBar() {
                   (user) =>
                     onlineUsers.includes(user._id) && (
                       <div key={user._id} className="relative cursor-pointer" onClick={() => dispatch(setSelectedUser(user))}>
-                        <div className="w-10 h-10 rounded-full border-2 border-blue-700 overflow-hidden shadow-md">
+                        <div className="w-10 h-10 rounded-full border-2 border-cyan-700 overflow-hidden shadow-md">
                           <img
                             className="w-full h-full object-cover"
                             src={user.image || dp}
@@ -106,8 +106,8 @@ function SideBar() {
               </div>
             </div>
           ) : (
-            <div className="w-full bg-white rounded-full px-4 py-2 flex items-center gap-2 shadow-inner">
-              <IoSearch className="text-gray-400 text-xl" />
+            <div className="w-full bg-gray-200 rounded-full px-4 py-2 flex items-center gap-2 shadow-inner">
+              <IoSearch className="text-[#06141B] text-xl" />
               <input
                 autoFocus
                 className="w-full outline-none bg-transparent text-gray-700"
@@ -138,12 +138,12 @@ function SideBar() {
             <div
               key={user._id}
               className={`w-[92%] p-4 rounded-2xl flex items-center gap-4 cursor-pointer transition-all duration-200 shadow-sm shrink-0
-                ${selectedUser?._id === user._id ? "bg-blue-600 text-white" : "bg-white hover:bg-blue-50 text-slate-800"}
+                ${selectedUser?._id === user._id ? "bg-[#11212D] text-white" : "bg-[#9BA8AB] hover:bg-blue-50 text-[#06141B]"}
               `}
               onClick={() => dispatch(setSelectedUser(user))}
             >
               <div key={user._id} className="relative">
-                <div className="w-10 h-10 rounded-full border-2 border-blue-700 overflow-hidden shadow-md">
+                <div className="w-10 h-10 rounded-full border-2 border-cyan-700 overflow-hidden shadow-md">
                   <img
                     className="w-full h-full object-cover"
                     src={user.image || dp}
@@ -160,7 +160,7 @@ function SideBar() {
                   {user.name || user.username}
                 </h1>
                 <p
-                  className={`text-xs truncate ${selectedUser?._id === user._id ? "text-blue-100" : "text-gray-500"}`}
+                  className={`text-xs truncate ${selectedUser?._id === user._id ? "text-blue-100" : "text-gray-700"}`}
                 >
                   Click to chat
                 </p>
@@ -168,7 +168,7 @@ function SideBar() {
             </div>
           ))
         ) : (
-          <p className="text-gray-500 mt-10">No users found</p>
+          <p className="text-gray-200 mt-10">No users found</p>
         )}
       </div>
 

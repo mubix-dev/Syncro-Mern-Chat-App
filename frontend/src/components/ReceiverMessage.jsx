@@ -11,7 +11,7 @@ function ReceiverMessage({ image, message, imageScroll }) {
       
       
       <div
-        className="w-8 h-8 shrink-0 rounded-full border-2 border-slate-500 overflow-hidden shadow-md"
+        className="w-8 h-8 shrink-0 rounded-full border-2 border-white overflow-hidden shadow-md"
       >
         <img
           className="w-full h-full object-cover"
@@ -21,7 +21,7 @@ function ReceiverMessage({ image, message, imageScroll }) {
       </div>
 
       
-      <div className="flex flex-col gap-2 px-4 py-3 text-slate-800 rounded-2xl rounded-tl-none bg-slate-100 shadow-md">
+      <div className="flex flex-col gap-2 px-4 py-3 text-slate-800 rounded-2xl rounded-tl-none bg-slate-400 shadow-md">
         {image && (
           <div className="w-full">
             <img 
@@ -34,7 +34,7 @@ function ReceiverMessage({ image, message, imageScroll }) {
         )}
 
         {message && (
-          <span className="text-sm lg:text-base wrap-break-word">
+          <span className="text-sm lg:text-base wrap-break-word font-semibold text-[#06141B]">
             {message}
           </span>
         )}
